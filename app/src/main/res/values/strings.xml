@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DoaaIdris_Tutorial6</string>
+
+    <string-array name="colour_options">
+        <item>RED</item>
+        <item>GREEN</item>
+        <item>BLUE</item>
+        <item>YELLOW</item>
+        <item>MAGENTA</item>
+        <item>BLACK</item>
+    </string-array>
+</resources>
