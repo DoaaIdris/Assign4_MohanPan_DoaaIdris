@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">DoaaIdris_Tutorial6</string>
+    <string name="seekbarTitle">Brush Size</string>
+    <string name="clearButtonRef">Clear</string>
+    <string name="undoButtonRef">Undo</string>
+    <string name="eraserButtonRef">Eraser</string>
+    <string name="lineButtonRef">Line</string>
+    <string name="circleButtonRef">Circle</string>
+    <string name="rectButtonRef">Rect</string>
+    <string name="drawButtonRef">Draw</string>
 
     <string-array name="colour_options">
         <item>RED</item>

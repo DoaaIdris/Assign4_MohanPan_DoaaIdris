@@ -13,9 +13,21 @@
        android:layout_height="572dp"
        android:background="#FFFFFF"
        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toBottomOf="@+id/seekBar"
-       app:layout_constraintVertical_bias="1.0"
-       tools:layout_editor_absoluteX="-23dp" />
+       app:layout_constraintVertical_bias="1.0" />
+
+   <TextView
+       android:id="@+id/seekBarTitle"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="35dp"
+       android:layout_marginLeft="35dp"
+       android:layout_marginTop="15dp"
+       android:text="@string/seekbarTitle"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
 
    <SeekBar
        android:id="@+id/seekBar"
@@ -32,8 +44,8 @@
 
    <androidx.appcompat.widget.Toolbar
        android:id="@+id/toolbar"
-       android:layout_width="461dp"
-       android:layout_height="91dp"
+       android:layout_width="460dp"
+       android:layout_height="90dp"
        android:background="#D82A2B2B"
        android:minHeight="?attr/actionBarSize"
        android:theme="?attr/actionBarTheme"
@@ -44,106 +56,98 @@
 
    <Button
        android:id="@+id/clearBtn"
-       android:layout_width="76dp"
-       android:layout_height="36dp"
+       android:layout_width="70dp"
+       android:layout_height="28dp"
        android:layout_marginStart="10dp"
        android:layout_marginLeft="10dp"
-       android:layout_marginTop="8dp"
-       android:layout_marginEnd="10dp"
-       android:layout_marginRight="10dp"
+       android:layout_marginTop="10dp"
        android:background="#D8D8D8"
-       android:text="Clear"
-       app:layout_constraintEnd_toStartOf="@+id/undoBtn"
-       app:layout_constraintHorizontal_bias="0.0"
-       app:layout_constraintStart_toStartOf="parent"
+       android:text="@string/clearButtonRef"
+       app:layout_constraintStart_toEndOf="@+id/eraserBtn"
        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
    <Button
        android:id="@+id/undoBtn"
-       android:layout_width="67dp"
-       android:layout_height="30dp"
-       android:layout_marginTop="12dp"
-       android:layout_marginEnd="8dp"
-       android:layout_marginRight="8dp"
+       android:layout_width="70dp"
+       android:layout_height="28dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
        android:background="#D8D8D8"
-       android:text="Undo"
-       app:layout_constraintEnd_toStartOf="@+id/eraserBtn"
+       android:text="@string/undoButtonRef"
+       app:layout_constraintStart_toEndOf="@+id/drawBtn"
        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
    <Button
        android:id="@+id/eraserBtn"
-       android:layout_width="72dp"
-       android:layout_height="30dp"
-       android:layout_marginTop="12dp"
-       android:layout_marginEnd="4dp"
-       android:layout_marginRight="4dp"
+       android:layout_width="70dp"
+       android:layout_height="28dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
        android:background="#D8D8D8"
-       android:text="Eraser"
-       app:layout_constraintEnd_toStartOf="@+id/drawBtn"
+       android:text="@string/eraserButtonRef"
+       app:layout_constraintStart_toEndOf="@+id/undoBtn"
        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
    <Button
        android:id="@+id/lineBtn"
-       android:layout_width="75dp"
-       android:layout_height="35dp"
+       android:layout_width="70dp"
+       android:layout_height="28dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginBottom="10dp"
        android:background="#D8D8D8"
-       android:text="Line"
+       android:text="@string/lineButtonRef"
        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-       app:layout_constraintEnd_toStartOf="@+id/circleBtn"
-       app:layout_constraintHorizontal_bias="0.4"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/clearBtn"
-       app:layout_constraintVertical_bias="0.6" />
+       app:layout_constraintStart_toEndOf="@+id/circleBtn" />
 
    <Button
        android:id="@+id/circleBtn"
-       android:layout_width="81dp"
-       android:layout_height="33dp"
-       android:layout_marginEnd="8dp"
-       android:layout_marginRight="8dp"
+       android:layout_width="70dp"
+       android:layout_height="28dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginBottom="10dp"
        android:background="#D8D8D8"
-       android:text="Circle"
+       android:text="@string/circleButtonRef"
        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toStartOf="@+id/rectBtn"
-       app:layout_constraintTop_toBottomOf="@+id/undoBtn"
-       app:layout_constraintVertical_bias="0.428" />
+       app:layout_constraintStart_toEndOf="@+id/rectBtn" />
 
    <Button
        android:id="@+id/rectBtn"
-       android:layout_width="72dp"
-       android:layout_height="40dp"
-       android:layout_marginEnd="76dp"
-       android:layout_marginRight="76dp"
-       android:text="Rect"
+       android:layout_width="70dp"
+       android:layout_height="28dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginBottom="10dp"
+       android:background="#D8D8D8"
+       android:text="@string/rectButtonRef"
        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toStartOf="@+id/colorPicker"
-       app:layout_constraintTop_toBottomOf="@+id/eraserBtn"
-       app:layout_constraintVertical_bias="0.857" />
+       app:layout_constraintStart_toStartOf="parent" />
 
    <Button
        android:id="@+id/drawBtn"
-       android:layout_width="74dp"
-       android:layout_height="40dp"
-       android:layout_marginEnd="4dp"
-       android:layout_marginRight="4dp"
-       android:text="draw"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toStartOf="@+id/colorPicker"
-       app:layout_constraintTop_toTopOf="@+id/toolbar"
-       app:layout_constraintVertical_bias="0.117" />
+       android:layout_width="70dp"
+       android:layout_height="28dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp"
+       android:background="#D8D8D8"
+       android:text="@string/drawButtonRef"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
    <View
        android:id="@+id/colorPicker"
-       android:layout_width="69dp"
-       android:layout_height="64dp"
-       android:layout_marginEnd="13dp"
-       android:layout_marginRight="13dp"
-       android:layout_marginBottom="13dp"
+       android:layout_width="70dp"
+       android:layout_height="70dp"
+       android:layout_marginEnd="10dp"
+       android:layout_marginRight="10dp"
        android:background="#FFFFFF"
        android:outlineAmbientShadowColor="#333131"
-       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintBottom_toBottomOf="@+id/toolbar"
        app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/myCanvas"
-       app:layout_constraintVertical_bias="1.0" />
+       app:layout_constraintTop_toBottomOf="@+id/myCanvas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
