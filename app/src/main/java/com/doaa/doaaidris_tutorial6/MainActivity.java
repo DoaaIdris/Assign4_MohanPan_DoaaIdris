@@ -18,6 +18,7 @@ import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
+import static android.graphics.Color.parseColor;
 import static android.graphics.Color.rgb;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     Button undoButton;
     Button eraserButton;
     Button lineButton;
+    Button circleButton;
+    Button rectButton;
+    Button drawButton;
 
     View colorPicker;
 
@@ -45,8 +49,13 @@ public class MainActivity extends AppCompatActivity {
         undoButton = findViewById(R.id.undoBtn);
         eraserButton = findViewById(R.id.eraserBtn);
         lineButton = findViewById(R.id.lineBtn);
+        circleButton = findViewById(R.id.circleBtn);
+        rectButton = findViewById(R.id.rectBtn);
+        drawButton = findViewById(R.id.drawBtn);
 
         colorPicker = findViewById(R.id.colorPicker);
+
+        dCanvas.pathColour = parseColor("#FFFFFF");
 
         strokeWidth.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -67,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-
         });
 
         colorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final Context context = MainActivity.this;
                 ColorPickerDialogBuilder
                         .with(context)
@@ -93,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                 colorPicker.setBackgroundColor(selectedColor);
                                 dCanvas.pathColour = selectedColor ;
-                                dCanvas.mode = 0;
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -110,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dCanvas.mode = 1;
+
+                drawButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                clearButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                undoButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                eraserButton.setBackgroundColor(Color.WHITE);
+                lineButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                circleButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                rectButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
             }
         });
 
@@ -117,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dCanvas.clearCanvas();
+
+                drawButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                clearButton.setBackgroundColor(Color.WHITE);
+                undoButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                eraserButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                lineButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                circleButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                rectButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
             }
         });
 
@@ -124,6 +148,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dCanvas.undoCanvas();
+
+                drawButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                clearButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                undoButton.setBackgroundColor(Color.WHITE);
+                eraserButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                lineButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                circleButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                rectButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
             }
         });
 
@@ -131,6 +163,61 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dCanvas.mode = 2;
+
+                drawButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                clearButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                undoButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                eraserButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                lineButton.setBackgroundColor(Color.WHITE);
+                circleButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                rectButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+            }
+        });
+
+        circleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dCanvas.mode = 3;
+
+                drawButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                clearButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                undoButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                eraserButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                lineButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                circleButton.setBackgroundColor(Color.WHITE);
+                rectButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+            }
+        });
+
+        rectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dCanvas.mode = 4;
+
+                drawButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                clearButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                undoButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                eraserButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                lineButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                circleButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                rectButton.setBackgroundColor(Color.WHITE);
+            }
+        });
+
+        drawButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dCanvas.mode = 0;
+
+                drawButton.setBackgroundColor(Color.WHITE);
+                clearButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                undoButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                eraserButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                lineButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                circleButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+                rectButton.setBackgroundColor(Color.parseColor("#FFD8D8D8"));
+
+
             }
         });
 

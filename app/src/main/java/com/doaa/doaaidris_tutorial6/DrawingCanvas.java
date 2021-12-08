@@ -1,5 +1,6 @@
 package com.doaa.doaaidris_tutorial6;
 
+import android.graphics.RectF;
 import android.view.View;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -45,7 +46,6 @@ public class DrawingCanvas extends View {
         if(pathsContainer.size() > 0){
             for(int i = 0; i < pathsContainer.size(); i++) {
                 canvas.drawPath(pathsContainer.get(i), paintContainer.get(i));
-                pathsContainer.getFirst().addCircle(x, y, radius, Path.Direction.CW);
                 super.onDraw(canvas);
             }
 
@@ -61,8 +61,8 @@ public class DrawingCanvas extends View {
 
     public void undoCanvas(){
         if (pathsContainer.size() > 0){
-            pathsContainer.removeFirst();
-            paintContainer.removeFirst();
+            pathsContainer.removeLast();
+            paintContainer.removeLast();
             invalidate();
         }
     }
@@ -91,16 +91,20 @@ public class DrawingCanvas extends View {
                     mPaint.setStrokeCap(Paint.Cap.ROUND);
                     mPaint.setStrokeWidth(pressure * pathWidth);
 
+                    //System.out.println(pathsContainer.size() - id);
+                   //System.out.println(id);
+
+                    pathsContainer.add(pathsContainer.size() - id, mPath);
+                    paintContainer.addLast(mPaint);
+
                     mPath.moveTo(event.getX(index), event.getY(index));
-                    pathsContainer.add(id, mPath);
-                    paintContainer.add(id, mPaint);
 
                     break;
 
                 case MotionEvent.ACTION_MOVE:
                     for(int i = 0; i < event.getPointerCount(); i++){
                         id = event.getPointerId(i);
-                        mPath = pathsContainer.get(id);
+                        mPath = pathsContainer.get((pathsContainer.size()-1) - id);
                         mPath.lineTo(event.getX(i), event.getY(i));
                     }
 
@@ -109,13 +113,12 @@ public class DrawingCanvas extends View {
 
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_POINTER_UP:
-                    mPath = pathsContainer.get(id);
                     break;
 
             }
         }
 
-        else if (mode == 1){
+        if (mode == 1){
             switch (event.getActionMasked()){
                 case MotionEvent.ACTION_DOWN:
                     mPath = new Path();
@@ -147,7 +150,7 @@ public class DrawingCanvas extends View {
             }
         }
 
-        else if (mode == 2){
+        else if (mode == 2) {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
 
@@ -169,10 +172,9 @@ public class DrawingCanvas extends View {
                     break;
 
                 case MotionEvent.ACTION_UP:
-
                     mPath = new Path();
                     mPaint = new Paint();
-
+                    //pathsContainer.getLast().reset();
                     pathsContainer.getLast().lineTo(event.getX(), event.getY());
 
                     invalidate();
@@ -182,48 +184,115 @@ public class DrawingCanvas extends View {
             }
         }
 
+        else if (mode == 3) {
 
-//        if (touchCount == 2){
-//            switch (event.getAction()){
-//                case MotionEvent.ACTION_DOWN:
-//                    mPaint = new Paint();
-//                    mPath = new Path();
-//
-//                    mPaint.setColor(pathColour);
-//                    mPaint.setStyle(Paint.Style.STROKE);
-//                    mPaint.setStrokeJoin(Paint.Join.ROUND);
-//                    mPaint.setStrokeCap(Paint.Cap.ROUND);
-//                    mPaint.setStrokeWidth(pressure * pathWidth);
-//
-//                    x = event.getX(0);
-//                    y = event.getY(0);
-//                    radius = (float) Math.hypot(event.getX(0) - event.getX(1), event.getY(0) - event.getY(1));
-//
-//                    //pathsContainer.addFirst(mPath);
-//                   // paintContainer.addFirst(mPaint);
-//
-//                    //pathsContainer.getFirst().addCircle(x, y, radius, Path.Direction.CW);
-//                    invalidate();
-//
-//                    break;
-//
-//                case MotionEvent.ACTION_MOVE:
-//                    //pathsContainer.getLast().reset();
-//
-//                    x = event.getX(0);
-//                    y = event.getY(0);
-//                    radius = (float) Math.hypot(event.getX(0) - event.getX(1), event.getY(0) - event.getY(1));
-//
-//
-//                    break;
-//
-//                case MotionEvent.ACTION_UP:
-//
-//                    break;
-//
-//
-//            }
-        //}
+            if(touchCount == 1){
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        mPaint.setColor(pathColour);
+                        mPaint.setStyle(Paint.Style.STROKE);
+                        mPaint.setStrokeJoin(Paint.Join.ROUND);
+                        mPaint.setStrokeCap(Paint.Cap.ROUND);
+
+                        mPaint.setStrokeWidth(pressure * pathWidth);
+
+                        pathsContainer.addLast(mPath);
+                        paintContainer.addLast(mPaint);
+
+
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        mPaint = new Paint();
+                        mPath = new Path();
+
+                        break;
+
+                }
+            }
+            else if (touchCount == 2){
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+
+                        x = event.getX(0);
+                        y = event.getY(0);
+                        radius = (float) Math.sqrt(Math.pow(event.getX(0) - event.getX(1), 2) + Math.pow(event.getY(0)- event.getY(1), 2));
+
+                        pathsContainer.addLast(mPath);
+                        paintContainer.addLast(mPaint);
+
+                        pathsContainer.getLast().moveTo(x, y);
+                        pathsContainer.getLast().addCircle(x, y, radius, Path.Direction.CW);
+
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        pathsContainer.getLast().reset();
+
+                        x = event.getX(0);
+                        y = event.getY(0);
+                        radius = (float) Math.sqrt(Math.pow(event.getX(0) - event.getX(1), 2) + Math.pow(event.getY(0)- event.getY(1), 2));
+
+                        pathsContainer.getLast().moveTo(x, y);
+                        pathsContainer.getLast().addCircle(x, y, radius, Path.Direction.CW);
+                        invalidate();
+                        break;
+
+
+                }
+            }
+        }
+
+        else if (mode == 4) {
+
+            if(touchCount == 1){
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        mPaint.setColor(pathColour);
+                        mPaint.setStyle(Paint.Style.STROKE);
+                        mPaint.setStrokeJoin(Paint.Join.ROUND);
+                        mPaint.setStrokeCap(Paint.Cap.ROUND);
+
+                        mPaint.setStrokeWidth(pressure * pathWidth);
+
+                        pathsContainer.addLast(mPath);
+                        paintContainer.addLast(mPaint);
+
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        mPaint = new Paint();
+                        mPath = new Path();
+
+                        break;
+
+                }
+            }
+            else if (touchCount == 2){
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+
+                        pathsContainer.addLast(mPath);
+                        paintContainer.addLast(mPaint);
+
+                        pathsContainer.getLast().moveTo(x, y);
+                        pathsContainer.getLast().addRect(event.getX(0), event.getY(0), event.getX(1), event.getY(1), Path.Direction.CW);
+
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        pathsContainer.getLast().reset();
+
+                        pathsContainer.getLast().moveTo(x, y);
+                        pathsContainer.getLast().addRect(event.getX(0), event.getY(0), event.getX(1), event.getY(1), Path.Direction.CW);
+
+                        invalidate();
+                        break;
+
+
+                }
+            }
+        }
 
         return true;
     }
