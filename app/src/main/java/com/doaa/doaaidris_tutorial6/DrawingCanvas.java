@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 public class DrawingCanvas extends View {
 
+    //variables used
     private Paint mPaint;
     public Path mPath;
     LinkedList<Paint> paintContainer;
@@ -24,10 +25,12 @@ public class DrawingCanvas extends View {
     public int pathColour;
     public int pathWidth;
 
+    //for creating a circle
     float radius;
     float x;
     float y;
 
+    //to switch between different drawing states
     public int mode = 0;
 
     public DrawingCanvas(Context context, AttributeSet attrs){
@@ -53,12 +56,14 @@ public class DrawingCanvas extends View {
 
     }
 
+    //method to clear canvas (path arraylist items)
     public void clearCanvas(){
         pathsContainer.clear();
         paintContainer.clear();
         invalidate();
     }
 
+    //method to remove last added item to arraylist (undo)
     public void undoCanvas(){
         if (pathsContainer.size() > 0){
             pathsContainer.removeLast();
@@ -77,6 +82,9 @@ public class DrawingCanvas extends View {
         int index = event.getActionIndex();
         int id = event.getPointerId(index);
 
+        //checks which mode user is on and executes touch events accordingly
+
+        //draw mode
         if(mode == 0) {
             switch (event.getActionMasked()){
                 case MotionEvent.ACTION_DOWN:
@@ -118,6 +126,7 @@ public class DrawingCanvas extends View {
             }
         }
 
+        //eraser mode
         if (mode == 1){
             switch (event.getActionMasked()){
                 case MotionEvent.ACTION_DOWN:
@@ -150,6 +159,7 @@ public class DrawingCanvas extends View {
             }
         }
 
+        //line drawing mode
         else if (mode == 2) {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
@@ -164,6 +174,8 @@ public class DrawingCanvas extends View {
                     paintContainer.addFirst(mPaint);
 
                     pathsContainer.getFirst().moveTo(event.getX(), event.getY());
+                    pathsContainer.getLast().lineTo(event.getX(), event.getY());
+                    invalidate();
 
                     break;
 
@@ -174,16 +186,13 @@ public class DrawingCanvas extends View {
                 case MotionEvent.ACTION_UP:
                     mPath = new Path();
                     mPaint = new Paint();
-                    //pathsContainer.getLast().reset();
-                    pathsContainer.getLast().lineTo(event.getX(), event.getY());
-
-                    invalidate();
 
                     break;
 
             }
         }
 
+        //circle mode
         else if (mode == 3) {
 
             if(touchCount == 1){
@@ -210,6 +219,8 @@ public class DrawingCanvas extends View {
 
                 }
             }
+
+            //if 2 touch points are detected, one finger will determine the center of the circle, and the other will determine its radius
             else if (touchCount == 2){
                 switch (event.getAction()){
                     case MotionEvent.ACTION_DOWN:
@@ -243,6 +254,7 @@ public class DrawingCanvas extends View {
             }
         }
 
+        //rectangle
         else if (mode == 4) {
 
             if(touchCount == 1){
@@ -268,6 +280,9 @@ public class DrawingCanvas extends View {
 
                 }
             }
+
+            //if 2 touch points are detected, fingers will determine the the top left corner, and bottom right corners of the radius
+            //make sure the first touch point is to the left of & top of the second touch point
             else if (touchCount == 2){
                 switch (event.getAction()){
                     case MotionEvent.ACTION_DOWN:
